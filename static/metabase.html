@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metabase Dashboard</title>
+    <link rel="stylesheet" href="/static/metabase.css"> <!-- Tambahkan CSS jika perlu -->
+</head>
+<body>
+    <header>
+        <h1>West Java</h1>
+        <nav>
+            <ul>
+                <li><a href="/static/home.html" class= "home-link btn">Home</a></li>
+                <li><a href="/static/about.html" class= "about-link btn">About</a></li>
+                <li><a href="/static/login.html" class= "login-link btn">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Tambahkan iframe Metabase -->
+        <iframe
+            src="http://localhost:3000/public/dashboard/67e09245-edf3-4c10-987f-6ccf0868f346"
+            width="100%"
+            height="600"
+            frameborder="0"
+        ></iframe>
+    </main>
+
+    <footer>
+        <p>KELOMPOK 01</p>
+        <p>Kevin, Dhika, Ghina</p>
+    </footer>
+</body>
+</html>

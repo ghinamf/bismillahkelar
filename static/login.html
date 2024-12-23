@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            padding: 50px 35px;
+            background-color: rgba(255, 255, 255, 0.13);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+            text-align: center;
+            width: 400px;
+        }
+
+        .login-container h2 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .login-container label {
+            display: block;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .login-container input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .login-container button {
+            margin-top: 30px;
+            width: 100%;
+            background-color: #000000;
+            color: white;
+            padding: 15px 0;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-container p {
+            margin-top: 15px;
+        }
+
+        .login-container p a {
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form id="login-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required placeholder="Enter your username">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required placeholder="Enter your password">
+
+        <button type="submit">Login</button>
+        <p id="login-error" style="color:red; display:none;">Invalid username or password</p>
+        <p>Don't have an account? <a href="register.html">Register here</a></p>
+    </form>
+</div>
+
+<script>
+    const supabaseUrl = "https://ojtuenggseofsgkbcgfg.supabase.co";
+    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qdHVlbmdnc2VvZnNna2JjZ2ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ3ODAxNzIsImV4cCI6MjA1MDM1NjE3Mn0.f45eP59sBJrqI2jCLyh7t0QlTENOQKFHX5AGKUc4SMQ";
+
+    document.getElementById("login-form").addEventListener("submit", async function(event) {
+        event.preventDefault(); // Mencegah reload halaman
+        const usernameInput = document.getElementById("username").value;
+        const passwordInput = document.getElementById("password").value;
+
+        // Ambil data dari tabel 'quiz1_login' di Supabase
+        try {
+            const response = await fetch(`${supabaseUrl}/rest/v1/quiz1_login?username=eq.${usernameInput}&password=eq.${passwordInput}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': supabaseAnonKey,
+                    'Authorization': `Bearer ${supabaseAnonKey}`
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.length > 0) {
+                alert("Login successful!");
+                window.location.href = "home.html"; // Redirect ke halaman home setelah login
+            } else {
+                document.getElementById("login-error").style.display = "block";
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            document.getElementById("login-error").style.display = "block";
+        }
+    });
+</script>
+
+<script>
+window.onload = function() {
+    // Disable right-click to view source
+    document.oncontextmenu = function(e) {
+        e.preventDefault();
+    };
+}
+</script>
+
+</body>
+</html>

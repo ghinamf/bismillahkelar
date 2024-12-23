@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Page</title>
+  <link rel="stylesheet" href="/static/about.css">
+</head>
+<body>
+  <header>
+    <h1>ABOUT</h1>
+    <nav>
+      <ul>
+          <li><a href="/static/home.html">Home</a></li>
+          <li><a href="/static/about.html">About</a></li>
+          <li><a href="/static/login.html">Logout</a></li>
+      </ul>
+  </nav>
+  
+</header>
+
+  <div class="about-section">
+  
+    <div id="profile-cards-container" class="profile-cards"></div>
+  </div>
+
+  <script>
+    function loadProfiles() {
+      fetch('profiles.json') 
+        .then(response => response.json()) 
+        .then(data => {
+          const container = document.getElementById('profile-cards-container');
+          container.innerHTML = ''; 
+
+          data.forEach(profile => {
+            const profileCard = `
+              <div class="profile-card">
+                <img src="${profile.image}" alt="Profile picture of ${profile.name}" class="profile-img">
+                <h2>${profile.name}</h2>
+                <p>${profile.studentId}</p>
+                <p>${profile.email}</p>
+                <p><strong>Instagram:</strong></p>
+                <ul>
+                  <li><a href="${profile.instagramLink}" target="_blank">${profile.instagram}</a></li>
+                </ul>
+              </div>
+            `;
+
+            container.innerHTML += profileCard;
+          });
+        })
+        .catch(error => console.error('Error loading profiles:', error)); 
+    }
+
+    window.onload = loadProfiles;
+  </script>
+</body>
+</html>
